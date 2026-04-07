@@ -1,35 +1,21 @@
 # Traceability Matrix — [FEATURE_NAME]
 
 **Status**: Living document
+**References**: [PRD](./01_PRD.md), [Technical Design](./03_technical-design.md), [Test Plan](./04_test-plan.md)
 **Created**: [DATE]
-**Updated**: [DATE]
-**Version**: [VERSION]
 
 > Gate: all FRs must reach ✅ before merge to main.
 
 <!--
-  ============================================================================
-  IMPORTANT: The rows below are SAMPLE ITEMS for illustration only.
-
-  Replace with actual FR mappings from:
-  - FRs in PRD.md
-  - Design sections in technical-design.md
-  - Endpoints from API section
-  - Test IDs from test-plan.md
-
-  DO NOT keep these sample items in the generated traceability-matrix file.
-  ============================================================================
+  IMPORTANT: Replace sample row below with actual FR mappings from:
+  PRD.md, technical-design.md, test-plan.md.
 -->
 
 | FR ID | Requirement | Design (section) | Endpoint | Test IDs | Status |
 | - | - | - | - | - | - |
 | [FR_ID] | [REQUIREMENT] | [DESIGN_SECTION] | [ENDPOINT] | [TEST_IDS] | ⬜ |
 
-<!--
-  Example:
-  | FR-001 | Create resource | technical-design §Business logic | POST /resources | TC-U-001, TC-A-003 | ⬜ |
-  | FR-002 | List resources | technical-design §API | GET /resources | TC-A-001 | ⬜ |
--->
+<!-- e.g. FR-001 | Create task | §Business logic | POST /tasks | TC-U-001, TC-A-003 | ⬜ -->
 
 **Status:** ⬜ No test / 🔄 In progress / ✅ Pass / ❌ Fail
 

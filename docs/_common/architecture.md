@@ -1,23 +1,18 @@
 # Architecture Overview
 
+**Version**: [VERSION] | **Last Amended**: [DATE]
+**References**: [API Conventions](./api-conventions.md)
+
 > Project-level. Per-feature technical designs reference this instead of repeating it.
 
 <!--
-  ACTION REQUIRED: Read project structure, framework config, docker-compose, and
-  infra files from codebase to populate all [PLACEHOLDER] sections below.
+  ACTION REQUIRED: Populate from project structure, framework config,
+  docker-compose, and infra files.
 -->
 
 ## System diagram
 
-<!--
-  ACTION REQUIRED: Generate from actual project dependencies and infrastructure.
-  Example architectures:
-  - Monolith: Client → API → DB
-  - With cache: Client → API → DB + Redis
-  - Microservices: Client → Gateway → Service A / Service B → DB
-  - Serverless: Client → API Gateway → Lambda → DynamoDB
-  - Full-stack SSR: Browser → Next.js → API routes → DB
--->
+<!-- ACTION REQUIRED: Generate from actual project dependencies. -->
 
 ```mermaid
 graph TD
@@ -29,16 +24,7 @@ graph TD
 
 ## Layer responsibilities
 
-<!--
-  ACTION REQUIRED: Identify from project directory structure and framework conventions.
-  Common patterns:
-  - MVC: Controller → Service → Model
-  - Clean Architecture: Controller → Use-case → Repository → Entity
-  - NestJS-style: Controller → Service → Repository
-  - Django-style: View → Serializer → Model
-  - Rails-style: Controller → Model (ActiveRecord)
-  - Go-style: Handler → Service → Store
--->
+<!-- ACTION REQUIRED: From project directory structure and framework conventions. -->
 
 | Layer | Responsibility |
 | - | - |
@@ -48,14 +34,7 @@ graph TD
 
 > See `_common/api-conventions.md` for token format.
 
-<!--
-  ACTION REQUIRED: Extract from role definitions, guards, RBAC/ABAC config, or user entity.
-  Examples:
-  - Simple: guest, user, admin
-  - RBAC: viewer, editor, owner, admin
-  - Multi-tenant: tenant_user, tenant_admin, super_admin
-  - Permission-based: roles with granular permissions (read:posts, write:posts)
--->
+<!-- ACTION REQUIRED: From role definitions, guards, RBAC/ABAC config, or user entity. -->
 
 | Role | Description |
 | - | - |
@@ -63,32 +42,8 @@ graph TD
 
 ## Observability standards
 
-<!--
-  ACTION REQUIRED: Extract from logging config, metrics setup, or APM integration.
-  Examples:
-  - Structured JSON logs (Winston / Pino / Bunyan / Logrus)
-  - event.name { key: value } plain format
-  - OpenTelemetry traces + Prometheus metrics
-  - Datadog / New Relic / Sentry APM
-  - Simple console.log (early stage)
--->
+<!-- ACTION REQUIRED: From logging config, metrics setup, or APM integration. -->
 
 | Signal | Format | When |
 | - | - | - |
 | [SIGNAL_TYPE] | [LOG_FORMAT] | [TRIGGER_CONDITION] |
-
-## Deployment
-
-<!--
-  ACTION REQUIRED: Extract from CI/CD config, Dockerfile, or infra-as-code.
-  Examples:
-  - Zero-downtime rolling deploy (Kubernetes)
-  - Blue-green deployment (AWS ECS)
-  - Serverless auto-deploy (Vercel / Netlify / AWS Lambda)
-  - Docker Compose on single server
-  - Manual deploy via SSH
--->
-
-- [DEPLOYMENT_STRATEGY]
-- [MIGRATION_STRATEGY]
-- [ROLLBACK_STRATEGY]

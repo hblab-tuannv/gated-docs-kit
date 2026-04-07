@@ -2,30 +2,23 @@
 
 **Author**: [AUTHOR]
 **Status**: [Draft | In Review | Approved]
+**References**: [PRD](./01_PRD.md)
 **Created**: [DATE]
-**Updated**: [DATE]
-**Version**: [VERSION]
 
 > Fill this before locking the technical design.
 > If the feature is greenfield with no shared data or APIs, write "No impact" and close.
 
 ## Affected components
 
-<!--
-  ACTION REQUIRED: Identify all components affected by this feature.
-  Impact types: Shared data, API contract change, Shared component,
-  Business rule change, Schema migration
--->
+<!-- ACTION REQUIRED: Identify all affected components. If greenfield, write "No impact". -->
 
 | Component | Impact type | Severity | Notes |
 | - | - | - | - |
 | [COMPONENT_NAME] | [IMPACT_TYPE] | 🔴 High / 🟡 Medium / 🟢 Low | [NOTES] |
 
-## Breaking changes
+## Breaking changes (OPTIONAL - only if public APIs or shared contracts change) ⚠️
 
-<!--
-  ACTION REQUIRED: List any breaking changes. If none, write "No breaking changes".
--->
+<!-- ACTION REQUIRED: List breaking changes. If none, write "No breaking changes". -->
 
 | Change | Location | Breaking? | Migration plan |
 | - | - | - | - |
@@ -41,12 +34,9 @@
 | - | - | - |
 | [EXISTING_FEATURE] | [TEST_SUITE_PATH] | ⬜ Pending |
 
-## Risk register
+## Risk register (OPTIONAL - for medium/high severity changes) ⚠️
 
-<!--
-  ACTION REQUIRED: Identify risks and mitigation strategies.
-  Example: "Data migration may fail for edge-case records" → "Run dry-run migration first"
--->
+<!-- ACTION REQUIRED: Identify risks and mitigations. -->
 
 | Risk | Severity | Mitigation |
 | - | - | - |

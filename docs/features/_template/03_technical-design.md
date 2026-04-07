@@ -2,10 +2,8 @@
 
 **Author**: [AUTHOR]
 **Status**: [Draft / In Review / Approved]
-**References**: [PRD](./01_PRD.md), [API Conventions](../../_common/api-conventions.md), [Architecture](../../_common/architecture.md)
+**References**: [PRD](./01_PRD.md), [Change Impact](./02_change-impact.md), [API Conventions](../../_common/api-conventions.md), [Architecture](../../_common/architecture.md), [Security Baseline](../../_common/security-baseline.md)
 **Created**: [DATE]
-**Updated**: [DATE]
-**Version**: [VERSION]
 
 ## Overview
 
@@ -15,16 +13,11 @@
 
 [FEATURE_OVERVIEW]
 
-## Data model
+## Data model (OPTIONAL - only if DB schema changes) ⚠️
 
 ### New / modified entities
 
-<!--
-  ACTION REQUIRED: List new or modified entities from the codebase.
-  Example:
-  - **`Task`** — new: id (uuid, PK), title (varchar 255, NOT NULL), status (enum), userId (uuid, FK)
-  - **`User`** — modified: added `lastLoginAt` (timestamp, nullable)
--->
+<!-- ACTION REQUIRED: List new or modified entities. e.g. **Task** — new: id (uuid, PK), title (varchar 255, NOT NULL), status (enum) -->
 
 **`[ENTITY_NAME]`** — _new / modified_
 
@@ -35,17 +28,14 @@
 
 ### Relationships
 
-<!--
-  ACTION REQUIRED: Define ER relationships between entities.
-  Use Mermaid erDiagram syntax: ||--o{ (one-to-many), ||--|| (one-to-one), }o--o{ (many-to-many)
--->
+<!-- ACTION REQUIRED: Define ER relationships. Syntax: ||--o{ (1:N), ||--|| (1:1), }o--o{ (M:N) -->
 
 ```mermaid
 erDiagram
     [EXISTING_ENTITY] ||--o{ [NEW_ENTITY] : "[VERB]"
 ```
 
-### Migration
+### Migration (OPTIONAL - only if new/altered tables) ⚠️
 
 ```sql
 -- Up
@@ -55,7 +45,7 @@ erDiagram
 [DOWN_MIGRATION_SQL]
 ```
 
-## API
+## API (OPTIONAL - only if feature exposes or modifies endpoints) ⚠️
 
 > Conventions (auth, errors, pagination) → [`_common/api-conventions.md`](../../_common/api-conventions.md)
 > Full contracts (request/response shapes) → defined in source: `[SOURCE_FILE_PATH]`
@@ -63,13 +53,7 @@ erDiagram
 
 ### Endpoints
 
-<!--
-  ACTION REQUIRED: List all endpoints from route definitions in source code.
-  Example:
-  - GET /resources (List, Required auth)
-  - POST /resources (Create, Required auth)
-  - POST /resources/:id/approve (Custom action, Admin only)
--->
+<!-- ACTION REQUIRED: List all endpoints from route definitions. e.g. GET /tasks — List all, auth required; POST /tasks — Create, auth required -->
 
 | Method | Path | Description | Auth |
 | - | - | - | - |
@@ -82,30 +66,15 @@ erDiagram
 
 ### Authorization
 
-<!--
-  ACTION REQUIRED: Extract from guards / decorators / middleware.
-  Example:
-  - List: user, own resources only
-  - Create: user, no extra check
-  - Approve: admin, status must be pending
--->
+<!-- ACTION REQUIRED: From guards / decorators / middleware. e.g. Create → role: user, own scope only; Approve → role: admin, status must be pending -->
 
 | Action | Required role | Extra check |
 | - | - | - |
 | [ACTION] | `[ROLE]` | [EXTRA_CHECK] |
 
-## Business logic
+## Business logic (OPTIONAL - skip if standard CRUD) ⚠️
 
-> Only document non-obvious rules. Skip if it's standard CRUD.
-
-<!--
-  ACTION REQUIRED: Document non-obvious business logic steps.
-  Example:
-  ### create(userId, input)
-  1. Validate uniqueness of title within user scope
-  2. Auto-assign to default category if none specified
-  3. Send notification to admin if priority is P0
--->
+<!-- ACTION REQUIRED: Document non-obvious business logic steps. e.g. 1. Validate title uniqueness within user scope → CONFLICT if duplicate -->
 
 ### `[METHOD_SIGNATURE]`
 
@@ -114,17 +83,38 @@ erDiagram
 2. [STEP_DESCRIPTION]
 ```
 
-## Frontend
+## Sequence Diagrams (OPTIONAL - skip for standard CRUD) ⚠️
 
-> Skip sections that follow standard patterns.
+> Document runtime data flow for non-trivial operations.
+
+<!--
+  ACTION REQUIRED: Create sequence diagrams for flows involving:
+  multiple services, async operations, complex auth, conditional branching,
+  background jobs, or external system integrations.
+-->
+
+### [FLOW_NAME]
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant API
+    participant Service
+    participant DB
+
+    User->>API: [REQUEST]
+    API->>Service: [METHOD_CALL]
+    Service->>DB: [QUERY]
+    DB-->>Service: [RESULT]
+    Service-->>API: [RESPONSE_DATA]
+    API-->>User: [HTTP_STATUS]
+```
+
+## Frontend (OPTIONAL - only if feature has UI) ⚠️
 
 ### Screens
 
-<!--
-  ACTION REQUIRED: Extract from page/route definitions in frontend source.
-  Example:
-  - List /resources (SSR), Detail /resources/:id (SSR), Form /resources/new (CSR)
--->
+<!-- ACTION REQUIRED: From page/route definitions. e.g. List /tasks (SSR), Detail /tasks/:id (CSR), Form /tasks/new (CSR) -->
 
 | Screen | Route | Rendering |
 | - | - | - |
@@ -134,23 +124,17 @@ erDiagram
 
 > Only document if it deviates from the standard fetch → display → mutate pattern.
 
-## Observability
+## Observability (OPTIONAL - only if feature-specific signals needed) ⚠️
 
 > Only document feature-specific signals. Global signals → [`_common/architecture.md`](../../_common/architecture.md)
 
-<!--
-  ACTION REQUIRED: Extract from logging/metrics in feature source code.
-  Example:
-  - Log INFO: resource.created { id, userId } on create
-  - Log WARN: resource.update_conflict { id } on conflict
-  - Metric: resource_created_total on create
--->
+<!-- ACTION REQUIRED: From logging/metrics. e.g. LOG INFO resource.created {id, userId}; METRIC resource_created_total -->
 
 | Signal | Event | When |
 | - | - | - |
 | [SIGNAL_TYPE] | `[EVENT_NAME] { [PAYLOAD] }` | [TRIGGER] |
 
-## Open questions
+## Open questions (OPTIONAL - if unresolved items remain) ⚠️
 
 | # | Question | Owner | Status |
 | - | - | - | - |

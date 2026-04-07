@@ -1,11 +1,10 @@
 # API Conventions
 
+**Version**: [VERSION] | **Last Amended**: [DATE]
+
 > Project-level. Applies to all features. Update here, not per-feature.
 
-<!--
-  ACTION REQUIRED: Read server config, middleware, error handlers, and shared
-  utilities from codebase to populate all [PLACEHOLDER] sections below.
--->
+<!-- ACTION REQUIRED: Populate from server config, middleware, error handlers, shared utilities. -->
 
 ## Base URL
 
@@ -15,15 +14,9 @@
 | Staging | `[STAGING_URL]` |
 | Production | `[PRODUCTION_URL]` |
 
-<!-- Example: http://localhost:3000, http://localhost:4000/graphql, http://localhost:8080/api/v1 -->
-
 ## Authentication
 
-<!--
-  ACTION REQUIRED: Identify auth scheme from auth middleware / guards / passport config.
-  Multiple schemes are supported — list all that apply.
-  Example schemes: Bearer JWT, Cookie session, API Key, OAuth2, Basic Auth
--->
+<!-- ACTION REQUIRED: From auth middleware / guards. e.g. Bearer JWT in Authorization header, HttpOnly cookie -->
 
 All protected endpoints require one of:
 
@@ -35,13 +28,7 @@ Unauthenticated requests → `[UNAUTHENTICATED_ERROR_CODE]`
 
 ## Standard error response
 
-<!--
-  ACTION REQUIRED: Document the actual error shape from global error handler / exception filter.
-  Example shapes:
-  - Flat: { "error": "CODE", "message": "...", "details": [{ "field": "...", "message": "..." }] }
-  - Envelope: { "success": false, "error": { "code": "...", "message": "..." } }
-  - RFC 7807: { "type": "/errors/...", "title": "...", "status": 404, "detail": "..." }
--->
+<!-- ACTION REQUIRED: From global error handler. Shapes: Flat / Envelope / RFC 7807 -->
 
 ```json
 [ERROR_RESPONSE_SHAPE]
@@ -49,11 +36,7 @@ Unauthenticated requests → `[UNAUTHENTICATED_ERROR_CODE]`
 
 ## Error codes
 
-<!--
-  ACTION REQUIRED: Extract from error constants / exception classes / enum definitions.
-  Common codes: 400 INVALID_INPUT, 401 UNAUTHENTICATED, 403 FORBIDDEN,
-  404 NOT_FOUND, 409 CONFLICT, 422 UNPROCESSABLE, 429 RATE_LIMITED, 500 INTERNAL_ERROR
--->
+<!-- ACTION REQUIRED: From error constants / exception classes. e.g. 400 VALIDATION_ERROR — Invalid input; 409 CONFLICT — Duplicate resource -->
 
 | HTTP | Code | When |
 | - | - | - |
@@ -61,31 +44,18 @@ Unauthenticated requests → `[UNAUTHENTICATED_ERROR_CODE]`
 
 ## Pagination
 
-<!--
-  ACTION REQUIRED: Identify pagination strategy from list endpoints / shared utility.
-  Common patterns:
-  - Offset: ?page=1&limit=20 → { "data": [...], "meta": { "total", "page", "limit" } }
-  - Cursor: ?cursor=abc&limit=20 → { "data": [...], "meta": { "nextCursor", "hasMore" } }
-  - Simple: ?offset=0&limit=20 → { "items": [...], "total": 100 }
-  - None (small collections, no pagination needed)
--->
+<!-- ACTION REQUIRED: From list endpoints. Patterns: Offset / Cursor / Simple / None -->
 
 [PAGINATION_DESCRIPTION]
 
 ## Soft delete
 
-<!--
-  ACTION REQUIRED: Check base entity / ORM config. Write "Not used" if hard delete only.
-  Example: deletedAt timestamp, isDeleted boolean, status = 'archived', Not used (hard delete)
--->
+<!-- ACTION REQUIRED: From base entity / ORM. Write "Not used" if hard delete only. -->
 
 [SOFT_DELETE_STRATEGY]
 
 ## Timestamps
 
-<!--
-  ACTION REQUIRED: Check entity definitions / serialization config.
-  Example: ISO 8601 UTC "2024-01-15T10:30:00.000Z", Unix epoch ms, Custom format
--->
+<!-- ACTION REQUIRED: From entity definitions / serialization config. -->
 
 [TIMESTAMP_FORMAT]

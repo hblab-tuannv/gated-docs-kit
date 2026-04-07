@@ -2,10 +2,8 @@
 
 **Author**: [AUTHOR]
 **Status**: [Draft / In Review / Approved]
-**References**: [Test Strategy](../../_common/test-strategy.md) · [Traceability Matrix](./05_traceability-matrix.md) |
+**References**: [PRD](./01_PRD.md), [Technical Design](./03_technical-design.md), [Test Strategy](../../_common/test-strategy.md), [Traceability Matrix](./05_traceability-matrix.md)
 **Created**: [DATE]
-**Updated**: [DATE]
-**Version**: [VERSION]
 
 > Strategy, pyramid, environments, global entry/exit criteria → [`_common/test-strategy.md`](../../_common/test-strategy.md)
 > This document contains only feature-specific test cases and any deviations.
@@ -17,12 +15,12 @@
 **Out of scope:**
 - [OUT_OF_SCOPE_ITEM]
 
-## Feature-specific entry criteria
+## Feature-specific entry criteria (OPTIONAL - if beyond global criteria) ⚠️
 
 > In addition to global criteria in `test-strategy.md`:
 - [ ] [ENTRY_CRITERION]
 
-## Feature-specific exit criteria
+## Feature-specific exit criteria (OPTIONAL - if beyond global DoD) ⚠️
 
 > In addition to global DoD in `test-strategy.md`:
 - [ ] [EXIT_CRITERION]
@@ -30,27 +28,13 @@
 ## Test cases
 
 <!--
-  ============================================================================
-  IMPORTANT: The test cases below are SAMPLE ITEMS for illustration only.
-
-  Replace with actual test cases based on:
-  - FRs from `01_PRD.md`
-  - Endpoints from `03_technical-design.md`
-  - Business logic rules
-  - Edge cases specific to this feature
-
-  DO NOT keep these sample items in the generated test-plan file.
-  ============================================================================
+  IMPORTANT: Replace sample items below with actual test cases from:
+  FRs (01_PRD.md), Endpoints (03_technical-design.md), Business logic, Edge cases.
 -->
 
 ### Unit
 
-<!--
-  ACTION REQUIRED: Generate from business logic in `03_technical-design.md`.
-  Example:
-  - TC-U-001: Validate title uniqueness, duplicate title input → throws CONFLICT
-  - TC-U-002: Auto-assign category, no category input → default category applied
--->
+<!-- ACTION REQUIRED: Generate from business logic in 03_technical-design.md. e.g. TC-U-001: Validate title uniqueness | duplicate title | throws CONFLICT -->
 
 | ID | Description | Input | Expected |
 | - | - | - | - |
@@ -58,41 +42,27 @@
 
 ### API / Integration
 
-<!--
-  ACTION REQUIRED: Generate from endpoint list in `03_technical-design.md`.
-  Cover all status codes per endpoint: 200, 201, 400, 401, 403, 404, 409.
-  Example:
-  - TC-A-001: GET /resources with auth → 200
-  - TC-A-002: GET /resources without auth → 401
-  - TC-A-003: POST /resources valid input → 201
-  - TC-A-004: PATCH /resources/:id non-owner → 403
--->
+<!-- ACTION REQUIRED: Generate from endpoint list. Cover all status codes (200, 201, 400, 401, 403, 404). e.g. TC-A-001: GET /tasks + auth → 200; TC-A-002: GET /tasks no auth → 401 -->
 
 | ID | Method | Path | Auth | Input | Expected status |
 | - | - | - | - | - | - |
 | TC-A-001 | `[METHOD]` | `[PATH]` | [AUTH] | [INPUT] | [STATUS] |
 
-### E2E
+### E2E (OPTIONAL - for significant user-facing changes) ⚠️
 
-<!--
-  ACTION REQUIRED: Generate from user journeys / acceptance criteria in `01_PRD.md`.
-  Example:
-  - TC-E-001: Create resource (happy path) → Resource visible in list
-  - TC-E-002: Edit and save resource → Changes persisted
-  - TC-E-003: Delete resource → Resource removed from list
--->
+<!-- ACTION REQUIRED: Generate from acceptance criteria in 01_PRD.md. e.g. TC-E-001: User creates task → task visible in list -->
 
 | ID | Journey | Expected outcome |
 | - | - | - |
 | TC-E-001 | [JOURNEY_DESCRIPTION] | [EXPECTED_OUTCOME] |
 
-### Performance _(skip if no NFR)_
+### Performance (OPTIONAL - only if NFR exists) ⚠️
 
 | ID | Scenario | Tool | Pass criteria |
 | - | - | - | - |
 | TC-P-001 | [SCENARIO] | [TOOL] | [CRITERIA] |
 
-### Regression
+### Regression (OPTIONAL - only if existing features affected) ⚠️
 
 > From `02_change-impact.md`
 
