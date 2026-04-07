@@ -272,7 +272,7 @@ Next steps:
   1. Resolve open questions
   2. Create ADR(s) if significant decisions exist → /docs-08-adr
   3. Generate test plan → /docs-06-test-plan
-  4. Run /docs-09-review-gate G2 when ready for review
+  4. Run /docs-gate G2 when ready for review
 ```
 
 ## Post-Execution Validation (MANDATORY)

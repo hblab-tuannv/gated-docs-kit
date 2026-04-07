@@ -107,7 +107,7 @@ flowchart TD
 | 06 | `docs-06-test-plan` | `04_test-plan.md` | — |
 | 07 | `docs-07-traceability` | `05_traceability-matrix.md` | G4 |
 | 08 | `docs-08-adr` | `06_ADR-NNN_*.md` (on demand) | — |
-| 09 | `docs-09-review-gate` | Gate verdict report | G1-G4 |
+| ✻ | `docs-gate` | Gate verdict report (cross-cutting) | G1-G4 |
 
 ### The 4 quality gates
 
@@ -196,7 +196,7 @@ gated-docs-kit/
 │   │   ├── docs-06-test-plan/SKILL.md       Test plan
 │   │   ├── docs-07-traceability/SKILL.md    Build matrix
 │   │   ├── docs-08-adr/SKILL.md             Record decision
-│   │   └── docs-09-review-gate/SKILL.md     Run gate G1-G4
+│   │   └── docs-gate/SKILL.md     Run gate G1-G4
 │   └── agents/
 │       ├── docs-codebase-analyzer.md        Survey codebase
 │       ├── docs-test-generator.md           Enumerate test cases

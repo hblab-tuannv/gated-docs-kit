@@ -115,7 +115,7 @@ Next steps (in order):
   4. /docs-06-test-plan             — Plan test cases
   5. /docs-07-traceability          — Build traceability matrix
   6. /docs-08-adr (as needed)       — Record key decisions
-  7. /docs-09-review-gate G1        — Run PRD review gate when ready
+  7. /docs-gate G1        — Run PRD review gate when ready
 ```
 
 ## Post-Execution Validation (MANDATORY)

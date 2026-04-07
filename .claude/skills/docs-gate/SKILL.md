@@ -1,5 +1,5 @@
 ---
-name: docs-09-review-gate
+name: docs-gate
 description: This skill should be used when the user asks to "run review gate", "check G1", "check G2", "check G3", "check G4", "validate PRD review", "validate design review", "code review check", "QA sign-off check", or wants to execute a review gate checklist from docs/_common/review-gates.md against a feature's documentation. Use at the boundary between lifecycle phases (before design, before code, before merge, before ship).
 compatibility: Requires docs/_common/review-gates.md and the relevant feature artifacts depending on which gate
 metadata:

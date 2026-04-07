@@ -187,7 +187,7 @@ Trước khi qua step 3, đảm bảo PRD đạt chất lượng:
 Run G1 cho feature user-auth-oauth2
 ```
 
-→ Skill `docs-09-review-gate` chạy checklist G1, in báo cáo PASS / FAIL / WARNINGS, kèm fix cụ thể.
+→ Skill `docs-gate` chạy checklist G1, in báo cáo PASS / FAIL / WARNINGS, kèm fix cụ thể.
 
 Nếu FAIL → quay lại step 3.2 sửa, rồi chạy lại G1.
 
@@ -249,7 +249,7 @@ Tạo ADR: chọn Postgres thay vì Mongo cho orders
 Run G2 cho user-auth-oauth2
 ```
 
-Skill `docs-09-review-gate` cross-check:
+Skill `docs-gate` cross-check:
 
 - Data model có đủ entity/field/constraint?
 - Migration có cả Up & Down?
@@ -401,7 +401,7 @@ Refresh docs/_common/architecture.md vì mới thêm Redis và worker service
 | `docs-06-test-plan` | "viết test plan", "tạo test cases", "QA plan" | `04_test-plan.md` | 4 | — |
 | `docs-07-traceability` | "build traceability matrix", "map FR sang test", "check FR coverage" | `05_traceability-matrix.md` | 5 | G4 |
 | `docs-08-adr` | "tạo ADR", "ghi quyết định kiến trúc", "document decision" | `06_ADR-XXX_*.md` | 6 | — |
-| `docs-09-review-gate` | "run gate G1/G2/G3/G4", "validate review", "check sẵn sàng" | Console report (+ optional `.gate-history.md`) | — | G1-G4 |
+| `docs-gate` | "run gate G1/G2/G3/G4", "validate review", "check sẵn sàng" | Console report (+ optional `.gate-history.md`) | — | G1-G4 |
 
 > 💡 **Trigger linh hoạt**: Bạn không cần nói chính xác cụm từ trên. Skill description liệt kê nhiều cụm phổ biến. Cứ nói tự nhiên — Claude sẽ chọn skill phù hợp.
 
@@ -416,7 +416,7 @@ Agents là **subprocess tự động** chạy nhiều bước trong nền, trả
 | `docs-codebase-analyzer` 🔵 | Khảo sát codebase, trả report architecture/API/security/test/glossary có cite file paths | Read, Grep, Glob, Bash | Khi `docs-01-bootstrap` hoặc `docs-04-change-impact` cần map codebase |
 | `docs-test-generator` 🟣 | Sinh test cases (Unit/API/E2E/Perf/Regression) từ PRD + tech design, kèm coverage map | Read, Grep, Glob | Khi `docs-06-test-plan` cần exhaustive enumeration |
 | `docs-traceability-auditor` 🟡 | Audit độc lập matrix, phát hiện wrong mapping, orphan tests, stale entries | Read, Grep, Glob | Khi feature có >15 FRs hoặc khi user yêu cầu audit |
-| `docs-review-gate-validator` 🟡 | Chạy checklist G1-G4 với evidence-based verdict | Read, Grep, Glob, Bash | Khi `docs-09-review-gate` cần evaluation chi tiết |
+| `docs-review-gate-validator` 🟡 | Chạy checklist G1-G4 với evidence-based verdict | Read, Grep, Glob, Bash | Khi `docs-gate` cần evaluation chi tiết |
 
 ### Gọi agent thủ công (nếu cần)
 
@@ -450,7 +450,7 @@ Run G3
 Run G4
 ```
 
-Skill `docs-09-review-gate` đọc checklist từ `_common/review-gates.md`, chấm từng item:
+Skill `docs-gate` đọc checklist từ `_common/review-gates.md`, chấm từng item:
 
 - ✅ Pass — đạt
 - ⚠️ Partial — có vấn đề nhỏ, có thể proceed nếu reviewer chấp nhận
@@ -490,7 +490,7 @@ Một số môi trường hỗ trợ:
 ```text
 /docs-03-prd Đăng nhập Google
 /docs-02-feature-new Push notification preferences
-/docs-09-review-gate G2
+/docs-gate G2
 ```
 
 ### Cách 3 — Yêu cầu tường minh
@@ -546,7 +546,7 @@ Workflow chạy theo nguyên tắc **minimum human-in-the-loop**: skill tự set
 | Status | Ý nghĩa | Ai set? |
 | - | - | - |
 | `Draft` | Nội dung đã viết, chưa qua gate | Skill (`set-status.sh --only-if-unset` tự set khi scaffold hoặc khi Post-Execution của 03/04/05/06) |
-| `Approved` | Gate đã PASS, không sửa nữa | Gate skill (`docs-09-review-gate` tự set khi verdict = PASS) |
+| `Approved` | Gate đã PASS, không sửa nữa | Gate skill (`docs-gate` tự set khi verdict = PASS) |
 | `Proposed` | ADR mới tạo, chưa qua G2 | Skill (`docs-08-adr`) |
 | `Accepted` | ADR đã được G2 PASS | Gate skill (G2 PASS → Accepted) |
 | `Deprecated` | ADR bị supersede | **Manual** — user tạo ADR mới và set Deprecated trên ADR cũ |

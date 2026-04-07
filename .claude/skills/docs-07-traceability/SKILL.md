@@ -7,7 +7,7 @@ metadata:
   output_file: docs/features/<feature>/05_traceability-matrix.md
   prerequisites: 01_PRD.md, 03_technical-design.md, 04_test-plan.md
   gate: G4
-  next_skill: docs-08-adr or docs-09-review-gate
+  next_skill: docs-08-adr or docs-gate
 ---
 
 # Docs Traceability Skill
@@ -218,7 +218,7 @@ Gate 4 status: ❌ NOT READY
 Next steps:
   1. Add test cases for FR-006 → /docs-06-test-plan
   2. Run failing tests to update statuses
-  3. Run /docs-09-review-gate G4 once all FRs are ✅
+  3. Run /docs-gate G4 once all FRs are ✅
 ```
 
 ## Post-Execution Validation (MANDATORY)

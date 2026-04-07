@@ -1,7 +1,7 @@
 ---
 name: docs-review-gate-validator
 description: |
-  Use this agent when the user is preparing to advance a feature through one of the four review gates (G1 PRD, G2 Design, G3 Code, G4 QA) and needs an autonomous, evidence-based execution of the gate checklist from docs/_common/review-gates.md. Use proactively whenever the docs-09-review-gate skill is invoked, or when the user asks to "validate gate", "run gate check", "gate audit", "review gate G1/G2/G3/G4", or wants to know whether a feature is ready to advance to the next phase. Examples:
+  Use this agent when the user is preparing to advance a feature through one of the four review gates (G1 PRD, G2 Design, G3 Code, G4 QA) and needs an autonomous, evidence-based execution of the gate checklist from docs/_common/review-gates.md. Use proactively whenever the docs-gate skill is invoked, or when the user asks to "validate gate", "run gate check", "gate audit", "review gate G1/G2/G3/G4", or wants to know whether a feature is ready to advance to the next phase. Examples:
 
   <example>
   Context: User is wrapping up the design phase and wants to move to implementation.
@@ -267,7 +267,7 @@ Items in ⊘ (N/A) do not affect the verdict.
 
 ## Next steps
 After fixes, re-run G2:
-  Use docs-09-review-gate skill with: G2 docs/features/<feature>
+  Use docs-gate skill with: G2 docs/features/<feature>
 ```
 
 **Quality Standards:**

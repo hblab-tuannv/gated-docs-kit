@@ -190,7 +190,7 @@ Next steps:
   1. Resolve open questions / clarifications
   2. Mark Status as "In Review" when ready
   3. Run /docs-04-change-impact to assess impact on existing components
-  4. Run /docs-09-review-gate G1 when PRD is ready for review
+  4. Run /docs-gate G1 when PRD is ready for review
 ```
 
 ## Post-Execution Validation (MANDATORY)
@@ -222,7 +222,7 @@ If `.valid == false`, list `.issues[]` and FIX before reporting completion. Comm
 .docs-scripts/compute-gate-verdict.sh --gate G1 --feature "$FEATURE" --json
 ```
 
-This previews G1 readiness — informational, not blocking. The user runs `docs-09-review-gate G1` for the official verdict. Include `.verdict` and `.summary` in your report so the user knows what is still needed before review.
+This previews G1 readiness — informational, not blocking. The user runs `docs-gate G1` for the official verdict. Include `.verdict` and `.summary` in your report so the user knows what is still needed before review.
 
 ## Quality Standards
 
