@@ -25,34 +25,62 @@ Most teams have ad-hoc documentation:
 
 `gated-docs-kit` enforces a structured lifecycle where each step has both an AI skill and a deterministic script. The AI does the writing, the script does the gating.
 
-```text
-docs-01-bootstrap        →   _common/ initialized from codebase
-       ↓
-docs-02-feature-new      →   features/<slug>/ scaffolded atomically
-       ↓
-docs-03-prd              →   01_PRD.md   ──┐
-       ↓                                    │
-   ┌── G1: PRD Review ◄────────────────────┘
-   ↓
-docs-04-change-impact    →   02_change-impact.md
-       ↓
-docs-05-technical-design →   03_technical-design.md   ──┐
-       ↓                              ↓                  │
-docs-08-adr (optional)   →   06_ADR-NNN_*.md            │
-       ↓                                                  │
-   ┌── G2: Design Review ◄───────────────────────────────┘
-   ↓
-docs-06-test-plan        →   04_test-plan.md
-       ↓
-docs-07-traceability     →   05_traceability-matrix.md
-       ↓
-   [implement code + run tests]
-       ↓
-   ┌── G3: Code Review
-   ↓
-   ┌── G4: QA Sign-off
-   ↓
-   🚀 Ship
+```mermaid
+flowchart TD
+    Start([🚀 Start project]) --> Bootstrap
+
+    subgraph Setup ["🔧 One-time setup"]
+        Bootstrap["<b>docs-01-bootstrap</b><br/>📁 docs/_common/*.md"]
+    end
+
+    Bootstrap --> NewFeat
+
+    subgraph PerFeature ["🎯 Per feature lifecycle"]
+        direction TB
+        NewFeat["<b>docs-02-feature-new</b><br/>📁 features/&lt;slug&gt;/"]
+        NewFeat --> PRD["<b>docs-03-prd</b> · Step 1<br/>📄 01_PRD.md"]
+
+        PRD --> G1{{"🚦 Gate G1<br/>PRD Review"}}
+        G1 -->|❌ FAIL: revise| PRD
+        G1 -->|✅ PASS| Impact
+
+        Impact["<b>docs-04-change-impact</b> · Step 2<br/>📄 02_change-impact.md"]
+        Impact --> Design["<b>docs-05-technical-design</b> · Step 3<br/>📄 03_technical-design.md"]
+
+        Design -.->|"💡 if significant decision"| ADR["<b>docs-08-adr</b> · Step 6<br/>📄 06_ADR-NNN_*.md"]
+        ADR -.-> G2
+
+        Design --> G2{{"🚦 Gate G2<br/>Design Review"}}
+        G2 -->|❌ FAIL: revise| Design
+        G2 -->|✅ PASS| TestPlan
+
+        TestPlan["<b>docs-06-test-plan</b> · Step 4<br/>📄 04_test-plan.md"]
+        TestPlan --> Trace["<b>docs-07-traceability</b> · Step 5<br/>📄 05_traceability-matrix.md"]
+
+        Trace --> Code[/"💻 Implement code + run tests<br/>(update matrix ⬜ → 🔄 → ✅)"/]
+
+        Code --> G3{{"🚦 Gate G3<br/>Code Review"}}
+        G3 -->|❌ FAIL: fix code| Code
+        G3 -->|✅ PASS| G4{{"🚦 Gate G4<br/>QA Sign-off"}}
+        G4 -->|❌ FAIL: fix bug| Code
+        G4 -->|✅ PASS| Ship
+    end
+
+    Ship([🎉 Ship to production])
+
+    classDef setupCls fill:#e1f5ff,stroke:#0288d1,stroke-width:2px,color:#01579b
+    classDef skillCls fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
+    classDef gateCls fill:#fff9c4,stroke:#f57f17,stroke-width:3px,color:#e65100
+    classDef codeCls fill:#e8f5e9,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+    classDef termCls fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#880e4f
+    classDef adrCls fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100,stroke-dasharray: 5 5
+
+    class Bootstrap setupCls
+    class NewFeat,PRD,Impact,Design,TestPlan,Trace skillCls
+    class G1,G2,G3,G4 gateCls
+    class Code codeCls
+    class Start,Ship termCls
+    class ADR adrCls
 ```
 
 ---

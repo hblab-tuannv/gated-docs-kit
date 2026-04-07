@@ -224,9 +224,27 @@ Verify the ADR has all required structural elements:
 
 ## Status Lifecycle
 
-```text
-Proposed  →  Accepted  →  Deprecated
-              (used by current code)    (replaced by newer ADR)
+```mermaid
+stateDiagram-v2
+    [*] --> Proposed: ADR drafted
+    Proposed --> Accepted: all deciders approve
+    Accepted --> Deprecated: superseded by newer ADR
+    Deprecated --> [*]
+
+    note right of Proposed
+        Drafted but not yet
+        approved by all deciders
+    end note
+
+    note right of Accepted
+        Approved + implemented
+        (used by current code)
+    end note
+
+    note right of Deprecated
+        Replaced by a newer ADR
+        Reference the replacement
+    end note
 ```
 
 | Status | Meaning |
