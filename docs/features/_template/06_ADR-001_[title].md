@@ -1,25 +1,42 @@
-# ADR-001 — [Decision Title]
+# ADR-001 — [DECISION_TITLE]
 
-| Date | Status | Deciders |
-| - | - | - |
-| YYYY-MM-DD | Proposed · Accepted · Deprecated | |
+**Created**: [DATE]
+**Status**: [Proposed / Accepted / Deprecated]
+**Deciders**: [DECIDERS]
+**Updated**: [DATE]
+**Version**: [VERSION]
 
 ## Context
 
-> What problem requires this decision?
+<!--
+  ACTION REQUIRED: Describe the problem that requires this decision.
+  Example: "We need to choose a database for storing user sessions.
+  Current in-memory storage doesn't survive restarts."
+-->
+
+[CONTEXT_DESCRIPTION]
 
 ## Options considered
 
+<!--
+  ACTION REQUIRED: List options with pros and cons.
+  Example:
+  | Option | Pros | Cons |
+  | Redis | Fast, built-in TTL | Extra infra |
+  | PostgreSQL | Already in stack | Slower for session lookups |
+  | JWT (stateless) | No storage needed | Can't revoke tokens easily |
+-->
+
 | Option | Pros | Cons |
 | - | - | - |
-| A | | |
-| B | | |
+| [OPTION_A] | [PROS] | [CONS] |
+| [OPTION_B] | [PROS] | [CONS] |
 
 ## Decision
 
-**[Option A / B]** — [one-line reason]
+**[CHOSEN_OPTION]** — [ONE_LINE_REASON]
 
 ## Consequences
 
-- ✅
-- ⚠️ Trade-off:
+- ✅ [POSITIVE_CONSEQUENCE]
+- ⚠️ Trade-off: [TRADE_OFF]

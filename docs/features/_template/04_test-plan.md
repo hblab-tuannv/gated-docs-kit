@@ -1,89 +1,101 @@
-# Test Plan — [Feature Name]
+# Test Plan — [FEATURE_NAME]
 
-| | |
-| - | - |
-| **Author** | |
-| **Status** | Draft · In Review · Approved |
-| **Created** | YYYY-MM-DD |
-| **References** | [Test Strategy](../../_common/test-strategy.md) · [Traceability Matrix](./traceability-matrix.md) |
+**Author**: [AUTHOR]
+**Status**: [Draft / In Review / Approved]
+**References**: [Test Strategy](../../_common/test-strategy.md) · [Traceability Matrix](./05_traceability-matrix.md) |
+**Created**: [DATE]
+**Updated**: [DATE]
+**Version**: [VERSION]
 
 > Strategy, pyramid, environments, global entry/exit criteria → [`_common/test-strategy.md`](../../_common/test-strategy.md)
 > This document contains only feature-specific test cases and any deviations.
 
----
-
 ## Scope
 
-**In scope:** FRs in `PRD.md` + regression from `change-impact.md`
+**In scope:** FRs in `01_PRD.md` + regression from `02_change-impact.md`
 
 **Out of scope:**
--
-
----
+- [OUT_OF_SCOPE_ITEM]
 
 ## Feature-specific entry criteria
 
 > In addition to global criteria in `test-strategy.md`:
-- [ ]
-- [ ]
+- [ ] [ENTRY_CRITERION]
 
 ## Feature-specific exit criteria
 
 > In addition to global DoD in `test-strategy.md`:
-- [ ]
-
----
+- [ ] [EXIT_CRITERION]
 
 ## Test cases
 
+<!--
+  ============================================================================
+  IMPORTANT: The test cases below are SAMPLE ITEMS for illustration only.
+
+  Replace with actual test cases based on:
+  - FRs from `01_PRD.md`
+  - Endpoints from `03_technical-design.md`
+  - Business logic rules
+  - Edge cases specific to this feature
+
+  DO NOT keep these sample items in the generated test-plan file.
+  ============================================================================
+-->
+
 ### Unit
+
+<!--
+  ACTION REQUIRED: Generate from business logic in `03_technical-design.md`.
+  Example:
+  - TC-U-001: Validate title uniqueness, duplicate title input → throws CONFLICT
+  - TC-U-002: Auto-assign category, no category input → default category applied
+-->
 
 | ID | Description | Input | Expected |
 | - | - | - | - |
-| <!-- AI:FILL --> | | | |
+| TC-U-001 | [TEST_DESCRIPTION] | [INPUT] | [EXPECTED] |
 
 ### API / Integration
 
-<!-- AI:FILL — generate from endpoint list in technical-design -->
+<!--
+  ACTION REQUIRED: Generate from endpoint list in `03_technical-design.md`.
+  Cover all status codes per endpoint: 200, 201, 400, 401, 403, 404, 409.
+  Example:
+  - TC-A-001: GET /resources with auth → 200
+  - TC-A-002: GET /resources without auth → 401
+  - TC-A-003: POST /resources valid input → 201
+  - TC-A-004: PATCH /resources/:id non-owner → 403
+-->
 
 | ID | Method | Path | Auth | Input | Expected status |
 | - | - | - | - | - | - |
-| <!-- AI:FILL --> | | | | | |
-
-> _Examples (adapt to actual endpoints):_
-> | ID | Method | Path | Auth | Input | Expected status |
-> | - | - | - | - | - | - |
-> | TC-A-001 | GET | `/resources` | ✅ | | 200 |
-> | TC-A-002 | GET | `/resources` | ❌ | | 401 |
-> | TC-A-003 | POST | `/resources` | ✅ | Valid | 201 |
-> | TC-A-004 | POST | `/resources` | ✅ | Invalid | 400 |
-> | TC-A-005 | PATCH | `/resources/:id` | ✅ non-owner | | 403 |
-> | TC-A-006 | PATCH | `/resources/:id` | ✅ | Unknown ID | 404 |
-> | TC-A-007 | DELETE | `/resources/:id` | ✅ | Already deleted | 404 / 409 |
+| TC-A-001 | `[METHOD]` | `[PATH]` | [AUTH] | [INPUT] | [STATUS] |
 
 ### E2E
 
+<!--
+  ACTION REQUIRED: Generate from user journeys / acceptance criteria in `01_PRD.md`.
+  Example:
+  - TC-E-001: Create resource (happy path) → Resource visible in list
+  - TC-E-002: Edit and save resource → Changes persisted
+  - TC-E-003: Delete resource → Resource removed from list
+-->
+
 | ID | Journey | Expected outcome |
 | - | - | - |
-| <!-- AI:FILL --> | | |
-
-> _Examples:_
-> | ID | Journey | Expected outcome |
-> | - | - | - |
-> | TC-E-001 | Create resource (happy path) | Resource visible in list |
-> | TC-E-002 | Edit and save resource | Changes persisted |
-> | TC-E-003 | Delete resource | Resource removed from list |
+| TC-E-001 | [JOURNEY_DESCRIPTION] | [EXPECTED_OUTCOME] |
 
 ### Performance _(skip if no NFR)_
 
 | ID | Scenario | Tool | Pass criteria |
 | - | - | - | - |
-| <!-- AI:FILL --> | | | |
+| TC-P-001 | [SCENARIO] | [TOOL] | [CRITERIA] |
 
 ### Regression
 
-> From `change-impact.md`
+> From `02_change-impact.md`
 
 | Feature | Suite | Required |
 | - | - | - |
-| | | 100% pass |
+| [EXISTING_FEATURE] | [SUITE_PATH] | 100% pass |
