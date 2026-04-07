@@ -59,6 +59,8 @@ If `.status != "ok"`, warn the user that templates reference `_common/` files. A
 Optional flags:
 
 - `--slug <custom-slug>` — override auto-generated slug
+- `--timestamp` — use timestamp prefix (`YYYYMMDD-HHMMSS-slug`) instead of sequential numbering (`001-slug`)
+- `--sequential` — explicit sequential numbering (this is the default)
 - `--force` — overwrite if folder exists (rare; ask user first)
 
 Parse JSON:
@@ -70,7 +72,7 @@ Parse JSON:
 The script handles atomically:
 
 - Slug generation from description (max 4 words)
-- Sequential numbering OR timestamp prefix (per `.specify/init-options.json`)
+- Sequential numbering by default; `--timestamp` for `YYYYMMDD-HHMMSS` prefix
 - Atomic copy of `_template/` (uses temp dir + rename — no half-states)
 - Pre-fill of `[FEATURE_NAME]`, `[AUTHOR]` (from `git config`), `[DATE]` (today)
 
@@ -85,7 +87,7 @@ Take the JSON returned by `create-feature-folder.sh` and build the user-facing s
 - `.feature_dir` — full path to the new folder
 - `.feature_number` — the assigned 3-digit number (or timestamp prefix)
 - `.feature_slug` — generated/specified slug
-- `.numbering_mode` — `"sequential"` or `"timestamp"` from `.specify/init-options.json`
+- `.numbering_mode` — `"sequential"` or `"timestamp"` (matches the CLI flag passed)
 - `.metadata.author`, `.metadata.date`, `.metadata.description` — pre-filled values
 - `.files_created` — array of 6 file names copied from the template
 

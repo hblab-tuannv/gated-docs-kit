@@ -171,7 +171,7 @@ Viết PRD cho feature OAuth2 login
 
 → Skill `docs-03-prd` sẽ:
 
-- Đọc template `01_PRD.md` + `_common/glossary.md` + `.specify/memory/constitution.md` (nếu có).
+- Đọc template `01_PRD.md` + `_common/glossary.md` để lấy domain terms.
 - Hỏi tối đa 3 câu clarification quan trọng nhất (nếu cần).
 - Sinh các section: Problem, Solution, Non-goals, Functional Requirements (FR-001…), NFRs, Acceptance Criteria, Success Metrics.
 - Self-validate theo checklist Gate G1.
@@ -639,8 +639,9 @@ chmod +x <project-mới>/.docs-scripts/*.sh
 
 - `docs/features/_template/` 6 file template (PRD, change-impact, technical-design, test-plan, traceability-matrix, ADR)
 - `docs/_common/` 6 file template (architecture, api-conventions, security-baseline, test-strategy, glossary, review-gates)
-- `.specify/init-options.json` (tuỳ chọn, để skill biết numbering mode `sequential` hay `timestamp`)
 - `jq` và `bash` đã cài (macOS/Linux có sẵn; `brew install jq` nếu thiếu)
+
+> 💡 Numbering mode: mặc định là `sequential` (`001-`, `002-`, ...). Nếu muốn dùng timestamp prefix, gọi `docs-02-feature-new` với flag `--timestamp` (sẽ thành `YYYYMMDD-HHMMSS-slug/`). Workflow này **không phụ thuộc vào `.specify/`** nào — hoàn toàn độc lập.
 
 Chạy `docs-01-bootstrap` để init.
 

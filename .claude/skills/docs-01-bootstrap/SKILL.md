@@ -150,7 +150,7 @@ Do **NOT** mark the skill as complete if `.summary.complete < 6` and no `> NEEDS
 
 | Situation | Action |
 | - | - |
-| `docs/_common/` missing | Stop. Tell user to run `git pull` or restore from `.specify/templates/` |
+| `docs/_common/` missing | Stop. Tell user to restore from VCS (`git checkout docs/_common/`) or recreate from a sister project |
 | Monorepo with multiple apps | Ask user which app to document, OR generate one section per app |
 | Greenfield project (no code yet) | Populate from `README.md` + project spec, mark architecture/API as `> NEEDS EVIDENCE: not yet implemented` |
 | Mixed-language project | Document each language's stack in its own table row, do not collapse |

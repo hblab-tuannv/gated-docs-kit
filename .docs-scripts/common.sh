@@ -134,7 +134,10 @@ next_feature_number() {
     [[ -d "$dir" ]] || continue
     name="$(basename "$dir")"
     [[ "$name" == "_template" ]] && continue
-    if [[ "$name" =~ ^([0-9]+)- ]]; then
+    # Match ONLY sequential 3-digit prefixes (e.g. 001-, 042-, 999-).
+    # Timestamp prefixes (8-digit YYYYMMDD-) and longer numeric strings
+    # are intentionally excluded so the two numbering modes can coexist.
+    if [[ "$name" =~ ^([0-9]{3})- ]]; then
       num="${BASH_REMATCH[1]}"
       num=$((10#$num))
       if [[ "$num" -gt "$max" ]]; then

@@ -2,12 +2,16 @@
 #
 # create-feature-folder.sh — Atomically scaffold a new feature folder
 #
-# Generates a slug, picks the next sequential number (or timestamp prefix per
-# .specify/init-options.json), copies the _template/ directory, and pre-fills
+# Generates a slug, picks the next sequential number (or a timestamp prefix
+# when --timestamp is passed), copies the _template/ directory, and pre-fills
 # author/date/feature-name metadata in the 6 template files.
 #
 # Usage:
-#   .docs-scripts/create-feature-folder.sh --description "User authentication via OAuth2" [--slug user-auth-oauth2] [--force] [--json]
+#   .docs-scripts/create-feature-folder.sh --description "User authentication via OAuth2" [--slug user-auth-oauth2] [--timestamp] [--force] [--json]
+#
+# Numbering modes:
+#   sequential (default) — features/001-slug, features/002-slug, ...
+#   timestamp (--timestamp) — features/YYYYMMDD-HHMMSS-slug
 #
 # Exit codes:
 #   0 — created
@@ -21,6 +25,7 @@ source "$SCRIPT_DIR/common.sh"
 
 DESCRIPTION=""
 SLUG=""
+NUMBERING_MODE="sequential"
 FORCE=false
 JSON=false
 
@@ -28,10 +33,12 @@ while [[ "$#" -gt 0 ]]; do
   case "$1" in
     --description) needs_value "$1" "${2:-}"; DESCRIPTION="$2"; shift 2 ;;
     --slug)        needs_value "$1" "${2:-}"; SLUG="$2"; shift 2 ;;
+    --timestamp)   NUMBERING_MODE="timestamp"; shift ;;
+    --sequential)  NUMBERING_MODE="sequential"; shift ;;
     --force)       FORCE=true; shift ;;
     --json)        JSON=true; shift ;;
     -h|--help)
-      sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'
       exit 0
       ;;
     *) log_error "Unknown arg: $1"; exit 2 ;;
@@ -74,20 +81,9 @@ if [[ -z "$SLUG" ]]; then
   exit 2
 fi
 
-# Determine numbering mode from .specify/init-options.json (default: sequential)
-numbering_mode="sequential"
-init_options="$PROJECT_ROOT/.specify/init-options.json"
-if [[ -f "$init_options" ]]; then
-  if command -v jq >/dev/null 2>&1; then
-    val=$(jq -r '.branch_numbering // "sequential"' "$init_options" 2>/dev/null || echo "sequential")
-    if [[ -n "$val" ]] && [[ "$val" != "null" ]]; then
-      numbering_mode="$val"
-    fi
-  fi
-fi
-
-# Build folder name
-if [[ "$numbering_mode" == "timestamp" ]]; then
+# Build folder name from chosen numbering mode (CLI flag drives this — no
+# external config file required so the workflow stays self-contained).
+if [[ "$NUMBERING_MODE" == "timestamp" ]]; then
   prefix=$(date +%Y%m%d-%H%M%S)
   folder_name="${prefix}-${SLUG}"
   feature_number="$prefix"
@@ -95,6 +91,7 @@ else
   feature_number=$(next_feature_number)
   folder_name="${feature_number}-${SLUG}"
 fi
+numbering_mode="$NUMBERING_MODE"
 
 target_dir="$FEATURES_DIR/$folder_name"
 

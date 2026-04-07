@@ -80,7 +80,6 @@ If no feature folder exists for this work, suggest running `docs-02-feature-new`
 Read these files in parallel (only if they exist):
 - `docs/features/<feature>/01_PRD.md` (the target)
 - `docs/_common/glossary.md` (for unified terminology)
-- `.specify/memory/constitution.md` (for project principles, if present)
 - Any existing PRDs in sibling features under `docs/features/*/01_PRD.md` to learn the team's writing style (read up to 2)
 
 ### Step 3: Extract feature concept
