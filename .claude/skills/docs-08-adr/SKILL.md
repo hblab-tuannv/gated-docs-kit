@@ -202,6 +202,16 @@ Next steps:
 
 ## Post-Execution Validation (MANDATORY)
 
+### Validation 0 — Ensure status field is set
+
+```bash
+.docs-scripts/set-status.sh "$ADR_FILE" "Proposed" --only-if-unset --json
+```
+
+ADRs use the `Proposed` initial status (not `Draft`). Idempotent; never overwrites `Accepted` or `Deprecated` for existing ADRs.
+
+### Validation 1 — Structural check
+
 ```bash
 .docs-scripts/validate-artifact.sh "$ADR_FILE" --json
 ```

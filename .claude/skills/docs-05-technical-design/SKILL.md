@@ -277,6 +277,14 @@ Next steps:
 
 ## Post-Execution Validation (MANDATORY)
 
+### Validation 0 — Ensure status field is set
+
+```bash
+.docs-scripts/set-status.sh "$FEATURE_DIR/03_technical-design.md" "Draft" --only-if-unset --json
+```
+
+Guarantees `**Status**` is at least `Draft` even on brownfield files. Idempotent; never overwrites an existing valid value like `In Review` or `Approved`.
+
 ### Validation 1 — Structural check
 
 ```bash

@@ -140,6 +140,13 @@ for f in $FEATURE_FILES; do
     -e "s|\[AUTHOR\]|$esc_author|g" \
     -e "s|\[DATE\]|$created|g" \
     "$filepath"
+  # Resolve the **Status** placeholder (e.g. "[Draft | In Review | Approved]"
+  # or "[Draft / In Review / Approved]") to a concrete "Draft" value so
+  # every scaffolded file has a valid, machine-readable status from day 1.
+  # The traceability matrix ships with "Living document" and is left alone.
+  if [[ "$f" != "05_traceability-matrix.md" ]]; then
+    sed -i '' -E 's|^(\*\*Status\*\*:)[[:space:]]*\[[^]]*\]|\1 Draft|' "$filepath"
+  fi
   if [[ "$JSON" == "true" ]]; then
     files_created=$(echo "$files_created" | jq --arg f "$f" '. + [$f]')
   fi
@@ -154,6 +161,8 @@ if [[ -f "$adr_path" ]]; then
     -e "s|\[DATE\]|$created|g" \
     -e "s|\[DECIDERS\]|$esc_author|g" \
     "$adr_path"
+  # ADRs use the "Proposed" initial state, not "Draft"
+  sed -i '' -E 's|^(\*\*Status\*\*:)[[:space:]]*\[[^]]*\]|\1 Proposed|' "$adr_path"
   if [[ "$JSON" == "true" ]]; then
     files_created=$(echo "$files_created" | jq --arg f "$ADR_TEMPLATE" '. + [$f]')
   fi

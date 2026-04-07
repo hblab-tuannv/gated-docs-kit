@@ -195,6 +195,14 @@ Next steps:
 
 ## Post-Execution Validation (MANDATORY)
 
+### Validation 0 — Ensure status field is set
+
+```bash
+.docs-scripts/set-status.sh "$FEATURE_DIR/01_PRD.md" "Draft" --only-if-unset --json
+```
+
+Run this BEFORE other validations. It guarantees `**Status**` is at least `Draft` even on brownfield files that never went through `docs-02-feature-new`. Idempotent: skipped when status is already a valid value. Never overwrites a human's in-flight transition (e.g. `In Review`).
+
 ### Validation 1 — Structural check
 
 ```bash

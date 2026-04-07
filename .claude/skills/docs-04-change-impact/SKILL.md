@@ -189,6 +189,16 @@ Next step:
 
 ## Post-Execution Validation (MANDATORY)
 
+### Validation 0 — Ensure status field is set
+
+```bash
+.docs-scripts/set-status.sh "$FEATURE_DIR/02_change-impact.md" "Draft" --only-if-unset --json
+```
+
+Guarantees `**Status**` is at least `Draft` even on brownfield files. Idempotent; safe to re-run.
+
+### Validation 1 — Structural check
+
 ```bash
 .docs-scripts/validate-artifact.sh "$FEATURE_DIR/02_change-impact.md" --json
 ```
