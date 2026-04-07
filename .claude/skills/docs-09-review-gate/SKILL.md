@@ -251,9 +251,9 @@ The script below IS the gate evaluation. Run it as the **primary action** of thi
 
 Parse the JSON:
 
-- `.verdict == "PASS"` → report success, suggest the next gate or ship
-- `.verdict == "PASS_WITH_WARNINGS"` → report warnings, allow user to proceed at their discretion
-- `.verdict == "FAIL"` → list all `.items[]` where `result == "fail"`, include the `fix` field for each as actionable remediation steps
+- `.verdict == "PASS"` → report success, auto-transition artifacts (see Validation 2 below), suggest the next gate or ship
+- `.verdict == "PASS_WITH_WARNINGS"` → report warnings, auto-transition artifacts (unless `--strict` was passed), suggest user review warnings
+- `.verdict == "FAIL"` → list all `.items[]` where `result == "fail"`, include the `fix` field for each as actionable remediation steps. **Do NOT auto-transition on fail.**
 
 The script handles **structural** checks deterministically:
 
@@ -264,7 +264,81 @@ The script handles **structural** checks deterministically:
 
 For **semantic** checks (does the design actually address the FR? does the test verify the requirement?), the script marks them `na` — you must add AI judgment on top by reading the artifacts and including findings in your final report.
 
-Optionally append the report to `$FEATURE_DIR/.gate-history.md` for an audit trail.
+### Validation 2 — Auto-transition artifacts on PASS (minimum human-in-the-loop)
+
+> **Policy**: gate PASS is the sign-off. No separate `In Review → Approved` human step. User runs the gate; if it passes, the artifacts are automatically promoted.
+
+Gate the transition on the verdict:
+
+```bash
+SHOULD_TRANSITION=false
+case "$VERDICT" in
+  PASS)
+    SHOULD_TRANSITION=true
+    ;;
+  PASS_WITH_WARNINGS)
+    # Warnings auto-transition UNLESS --strict was passed
+    if [[ "$STRICT" != "true" ]]; then
+      SHOULD_TRANSITION=true
+    fi
+    ;;
+  FAIL)
+    SHOULD_TRANSITION=false
+    ;;
+esac
+```
+
+If `SHOULD_TRANSITION == true`, call `set-status.sh` for the gate's primary artifacts:
+
+```bash
+case "$GATE" in
+  G1)
+    # PRD is approved by G1 passing
+    .docs-scripts/set-status.sh "$FEATURE_DIR/01_PRD.md" "Approved" --json
+    ;;
+  G2)
+    # Design review approves change-impact, technical-design, and any ADRs
+    .docs-scripts/set-status.sh "$FEATURE_DIR/02_change-impact.md" "Approved" --json
+    .docs-scripts/set-status.sh "$FEATURE_DIR/03_technical-design.md" "Approved" --json
+    for adr in "$FEATURE_DIR"/06_ADR-*.md; do
+      [[ -f "$adr" ]] || continue
+      # Skip the unrenamed template placeholder
+      [[ "$(basename "$adr")" == "06_ADR-001_[title].md" ]] && continue
+      .docs-scripts/set-status.sh "$adr" "Accepted" --json
+    done
+    ;;
+  G3)
+    # G3 is code review — no doc artifact transitions
+    ;;
+  G4)
+    # QA sign-off approves the test plan.
+    # 05_traceability-matrix.md stays "Living document" — do NOT touch.
+    .docs-scripts/set-status.sh "$FEATURE_DIR/04_test-plan.md" "Approved" --json
+    ;;
+esac
+```
+
+Each `set-status.sh` call is idempotent — re-running the gate on already-Approved artifacts is a no-op. Include the transitioned files in your final report so the user knows what changed.
+
+### Validation 3 — Append gate outcome to audit history
+
+Append a timestamped entry to `$FEATURE_DIR/.gate-history.md` (create the file if it does not exist). This preserves an audit trail even though `.gate-history.md` is gitignored by default.
+
+```bash
+cat >> "$FEATURE_DIR/.gate-history.md" <<EOF
+
+## $(date +"%Y-%m-%d %H:%M") — Gate $GATE
+
+**Verdict**: $VERDICT
+**Auto-transitioned**: <comma-separated list of files, or "none">
+
+\`\`\`json
+<paste the full compute-gate-verdict.sh --json output here>
+\`\`\`
+EOF
+```
+
+The audit trail makes it possible to trace *why* an artifact was promoted and *what* the evidence was at promotion time.
 
 ## Quality Standards
 

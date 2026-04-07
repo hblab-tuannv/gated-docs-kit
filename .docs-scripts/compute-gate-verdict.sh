@@ -100,10 +100,10 @@ case "$GATE" in
       add_item "01_PRD.md exists" "pass" "file present"
 
       status=$(get_artifact_status "$prd")
-      if [[ "$status" == "Draft" ]] || [[ -z "$status" ]]; then
-        add_item "PRD status is at least 'In Review'" "fail" "current: $status" "Update header **Status**: In Review"
+      if [[ -z "$status" ]]; then
+        add_item "PRD status field is set" "fail" "status is empty or placeholder" "Run /docs-03-prd to author the PRD (will auto-set Draft)"
       else
-        add_item "PRD status is at least 'In Review'" "pass" "current: $status"
+        add_item "PRD status field is set" "pass" "current: $status"
       fi
 
       nc=$(count_needs_clarification "$prd")
@@ -173,9 +173,9 @@ case "$GATE" in
     else
       pstatus=$(get_artifact_status "$prd")
       if [[ "$pstatus" != "Approved" ]]; then
-        add_item "01_PRD.md is Approved" "warn" "status: $pstatus" "Approve PRD before design review"
+        add_item "01_PRD.md is Approved (G1 passed)" "fail" "status: ${pstatus:-(unset)}" "Run G1 first — PRD must be Approved before G2"
       else
-        add_item "01_PRD.md is Approved" "pass" "Approved"
+        add_item "01_PRD.md is Approved (G1 passed)" "pass" "Approved"
       fi
     fi
 
@@ -199,10 +199,10 @@ case "$GATE" in
       add_item "03_technical-design.md exists" "pass" "present"
 
       dstatus=$(get_artifact_status "$design")
-      if [[ -z "$dstatus" ]] || [[ "$dstatus" == "Draft" ]]; then
-        add_item "Design status ≥ In Review" "fail" "current: ${dstatus:-(not set)}" "Update **Status**: In Review"
+      if [[ -z "$dstatus" ]]; then
+        add_item "Design status field is set" "fail" "status is empty or placeholder" "Run /docs-05-technical-design (will auto-set Draft)"
       else
-        add_item "Design status ≥ In Review" "pass" "current: $dstatus"
+        add_item "Design status field is set" "pass" "current: $dstatus"
       fi
 
       ph=$(count_placeholders "$design")
